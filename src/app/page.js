@@ -1,15 +1,20 @@
 "use client";
-import Button from "@/components/Button";
 import Logo from "@/components/Logo";
 import ReceiptUploader from "@/components/ReceiptUploader";
 import axios from "axios";
-import { Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useReceipt } from "./receipt-context";
+import { useEffect } from "react";
 
 export default function Home() {
-  const [receiptData, setReceiptData] = useState(null);
   const router = useRouter();
+  const { rawReceiptData, setRawReceiptData } = useReceipt();
+  useEffect(() => {
+    console.log("Page mounted");
+    if (rawReceiptData) {
+      console.log("rawReceiptData loaded:", rawReceiptData);
+    }
+  }, [rawReceiptData]);
 
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -37,9 +42,8 @@ export default function Home() {
         image: convertedImage,
       });
 
-      console.log(response.data);
-      // set receiptData state so table component re-renders when data is available
-      setReceiptData(response.data);
+      const data = JSON.parse(response.data);
+      setRawReceiptData(data);
       router.push("/receipt");
     } catch (error) {
       console.error(error);
