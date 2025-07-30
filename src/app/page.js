@@ -44,7 +44,7 @@ export default function Home() {
 
       const data = JSON.parse(response.data);
       setRawReceiptData(data);
-      router.push("/receipt");
+      router.push("/add-pals");
     } catch (error) {
       console.error(error);
     }

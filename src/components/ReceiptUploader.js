@@ -18,7 +18,7 @@ function ReceiptUploader({ handleUpload }) {
   };
   return (
     <div>
-      <Button text="Upload receipt" icon={Upload} onClick={handleClick} />
+      <Button icon={Upload} onClick={handleClick}>Upload receipt</Button>
       <input
         className="hidden"
         type="file"
