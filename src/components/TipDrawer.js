@@ -7,20 +7,17 @@ import {
   DialogFooter,
   DialogClose,
 } from "./ui/dialog";
-import { Plus } from "lucide-react";
+import { HandCoins, Plus } from "lucide-react";
 import Button from "./Button";
 import { Input } from "./ui/input";
 
-export default function TipDialog() {
+export default function TipDialog(handleTip) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          text="Add tip"
-          variant="ghost"
-          icon={Plus}
-          //   onClick={handleTip}
-        />
+        <Button variant="ghost" icon={HandCoins}>
+          Add tip
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -29,11 +26,13 @@ export default function TipDialog() {
         <div className="flex items-center gap-2 mt-3 mb-3">
           {/* TO:DO determine the currency based on receipt data */}
           <p className="font-medium text-neutral-600">£</p>
-          <Input type="text" placeholder="Enter tip amount" />
+          <Input type="text" placeholder="Enter amount" />
         </div>
         <DialogFooter>
-          <Button variant="secondary" text="Cancel"></Button>
-          <Button text="Add tip"></Button>
+          <div className="flex gap-2 justify-end">
+            <Button variant="secondary">Cancel</Button>
+            <Button onClick={() => handleTip}>Add tip</Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

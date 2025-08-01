@@ -67,7 +67,6 @@ export default function AddPalsPage() {
           ></Button>
         </form>
         <div className="flex flex-col gap-2 mt-auto">
-          {/* Add error handling if no pals were added */}
           <Button onClick={handleContinue}>Continue</Button>
           <Button variant="secondary">Back</Button>
         </div>
