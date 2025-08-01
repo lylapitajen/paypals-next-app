@@ -1,4 +1,4 @@
-function Button({ variant = "primary", icon: Icon, children, onClick }) {
+function Button({ variant = "primary", children, onClick }) {
   const buttonStyles = {
     primary: "bg-green-950 text-white shadow-xs py-2 px-3 ",
     secondary:
@@ -9,9 +9,8 @@ function Button({ variant = "primary", icon: Icon, children, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`${buttonStyles[variant]} flex gap-1 items-center justify-center rounded-sm font-medium cursor-pointer transition duration-50 ease-in-out`}
+      className={`${buttonStyles[variant]} flex gap-1 items-center justify-center rounded-sm font-medium cursor-pointer transition duration-50 ease-in-out [&>svg]:w-4 [&>svg]:h-4`}
     >
-      {Icon && <Icon size={16} />}
       {children}
     </button>
   );

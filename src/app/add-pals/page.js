@@ -58,13 +58,14 @@ export default function AddPalsPage() {
           <Input type="text" onChange={handleInput} value={inputValue} />
           <Button
             variant="secondary"
-            icon={Plus}
             onClick={(e) => {
               addPayee(inputValue);
               setInputValue("");
               e.preventDefault();
             }}
-          ></Button>
+          >
+            <Plus />
+          </Button>
         </form>
         <div className="flex flex-col gap-2 mt-auto">
           <Button onClick={handleContinue}>Continue</Button>

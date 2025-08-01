@@ -15,7 +15,8 @@ export default function TipDialog(handleTip) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" icon={HandCoins}>
+        <Button variant="ghost">
+          <HandCoins />
           Add tip
         </Button>
       </DialogTrigger>

@@ -1,14 +1,3 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import Button from "./Button";
-import { User, Plus, HandCoins } from "lucide-react";
 import { useState } from "react";
 import TipDrawer from "./TipDrawer";
 import ReceiptItemCard from "./ReceiptItemCard";
