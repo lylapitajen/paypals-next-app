@@ -5,12 +5,12 @@ export default function ReceiptItemCard({ name, price, quantity }) {
     <div className="border border-neutral-200 rounded-sm flex flex-col">
       <div className="flex justify-between py-2 px-3">
         <div className="flex flex-col gap-1">
-          <p className="font-semibold text-md">{name}</p>
-          <p className="text-sm text-neutral-600">
+          <span className="font-semibold text-md">{name}</span>
+          <span className="text-sm text-neutral-600">
             £{price.toFixed(2)} x {quantity}
-          </p>
+          </span>
         </div>
-        <p>{`£${(price * quantity).toFixed(2)}`}</p>
+        <span>{`£${(price * quantity).toFixed(2)}`}</span>
       </div>
       <div className="flex justify-between items-center py-2 px-3 border-t border-neutral-200">
         <Button variant="ghost">

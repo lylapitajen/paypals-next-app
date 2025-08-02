@@ -37,11 +37,9 @@ export default function AddPalsPage() {
                 <Avatar name={name} />
                 {name}
               </div>
-              <Button
-                variant="ghost"
-                icon={X}
-                onClick={() => removePayee(id)}
-              ></Button>
+              <Button variant="ghost" onClick={() => removePayee(id)}>
+                <X />
+              </Button>
             </div>
           </li>
         ))}

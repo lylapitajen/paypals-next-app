@@ -9,6 +9,7 @@ export function ReceiptProvider({ children }) {
   const [calculatedReceiptData, setCalculatedReceiptData] = useState(null);
   const [payees, setPayees] = useState([]);
   const [payeeID, setPayeeID] = useState(0);
+  const [tipAmount, setTipAmount] = useState(0);
   useEffect(() => console.log(payees), [payees]);
 
   const addPayee = (name) => {
@@ -27,10 +28,12 @@ export function ReceiptProvider({ children }) {
         rawReceiptData,
         calculatedReceiptData,
         payees,
+        tipAmount,
         setRawReceiptData,
         setCalculatedReceiptData,
         addPayee,
         removePayee,
+        setTipAmount,
       }}
     >
       {children}
