@@ -42,7 +42,7 @@ export default function ReceiptBreakdown({
             <span>Tip</span>
             <TipDialog></TipDialog>
           </div>
-          <span className="font-mediun">£{tipAmount.toFixed(2)}</span>
+          <span className="font-medium">£{tipAmount.toFixed(2)}</span>
         </div>
         <div className="flex justify-between items-center text-lg pt-2 border-t border-neutral-200">
           <span>Total</span>

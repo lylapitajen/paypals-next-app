@@ -6,20 +6,27 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import Avatar from "@/components/Avatar";
 import { useRouter } from "next/navigation";
+import ErrorMessageAlert from "@/components/ErrorMessageAlert";
 
 export default function AddPalsPage() {
   const { payees, addPayee, removePayee } = useReceipt();
   const [inputValue, setInputValue] = useState("");
-  const [hasError, setHasError] = useState(false);
-  const handleInput = (e) => {
-    if (e.target.value) {
-      setInputValue(e.target.value);
+  const [errorMessage, setErrorMessage] = useState();
+
+  const handleAddPayee = (inputValue) => {
+    if (inputValue.length === 0) {
+      setErrorMessage("Please enter a name");
+      return;
     }
+
+    addPayee(inputValue);
+    setErrorMessage(undefined);
+    setInputValue("");
   };
 
   const handleContinue = () => {
     if (payees.length === 0) {
-      setHasError(true);
+      setErrorMessage("Add at least one pal to continue");
       return;
     }
     router.push("/receipt");
@@ -45,20 +52,20 @@ export default function AddPalsPage() {
         ))}
       </ul>
       <div className="flex flex-col gap-4 mt-auto">
-        {hasError && (
-          <div className="py-2 px-3 flex gap-2 bg-red-50 text-red-700 rounded-sm items-center">
-            <AlertCircle className="w-4 h-4" />
-            <p>Add at least one person to continue.</p>
-            {/* Remove error message when user starts to type a name */}
-          </div>
-        )}
+        {errorMessage && <ErrorMessageAlert message={errorMessage} />}
         <form className="flex gap-2">
-          <Input type="text" onChange={handleInput} value={inputValue} />
+          <Input
+            type="text"
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={() => {
+              if (errorMessage) setErrorMessage(undefined);
+            }}
+            value={inputValue}
+          />
           <Button
             variant="secondary"
             onClick={(e) => {
-              addPayee(inputValue);
-              setInputValue("");
+              handleAddPayee(inputValue);
               e.preventDefault();
             }}
           >

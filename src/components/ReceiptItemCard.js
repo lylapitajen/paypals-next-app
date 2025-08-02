@@ -17,15 +17,6 @@ export default function ReceiptItemCard({ name, price, quantity }) {
           <User />
           Assign
         </Button>
-
-        <div className="flex gap-2">
-          <Button variant="secondary">
-            <Edit2 />
-          </Button>
-          <Button variant="secondary">
-            <Plus />
-          </Button>
-        </div>
       </div>
     </div>
   );
