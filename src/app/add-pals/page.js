@@ -18,10 +18,18 @@ export default function AddPalsPage() {
       setErrorMessage("Please enter a name");
       return;
     }
-
+    if (
+      payees.find(
+        (payee) => payee.name.toLowerCase() === inputValue.toLowerCase()
+      )
+    ) {
+      setErrorMessage("This pal is already added");
+      return;
+    }
     addPayee(inputValue);
     setErrorMessage(undefined);
     setInputValue("");
+    console.log("Payees after adding:", payees);
   };
 
   const handleContinue = () => {

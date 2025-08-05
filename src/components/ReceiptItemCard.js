@@ -1,5 +1,6 @@
+import AssignItemDialog from "./AssignItemDialog";
 import Button from "./Button";
-import { Edit, Edit2, Plus, User } from "lucide-react";
+import { Edit, Edit2, EditIcon, Plus, User } from "lucide-react";
 export default function ReceiptItemCard({ name, price, quantity }) {
   return (
     <div className="border border-neutral-200 rounded-sm flex flex-col">
@@ -13,9 +14,10 @@ export default function ReceiptItemCard({ name, price, quantity }) {
         <span>{`£${(price * quantity).toFixed(2)}`}</span>
       </div>
       <div className="flex justify-between items-center py-2 px-3 border-t border-neutral-200">
+        <AssignItemDialog />
+        {/* TO:DO Only display if item has assignees */}
         <Button variant="ghost">
-          <User />
-          Assign
+          <EditIcon />
         </Button>
       </div>
     </div>

@@ -7,7 +7,8 @@ import { useRouter } from "next/navigation";
 
 export default function ReceiptPage() {
   const router = useRouter();
-  const { rawReceiptData } = useReceipt();
+  const { rawReceiptData, payees } = useReceipt();
+  console.log("Payees in Receipt Page:", payees);
   useEffect(() => {
     console.log("rawReceiptData on Receipt Page:", rawReceiptData);
   }, [rawReceiptData]);
