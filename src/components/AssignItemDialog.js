@@ -23,6 +23,10 @@ export default function AssignItemDialog({ selectedItemID }) {
     (item) => item.id === selectedItemID
   );
 
+  useEffect(() => {
+    console.log("Selected Pals:", selectedPals);
+  }, [selectedPals]);
+
   const handleAssign = () => {
     selectedItem.assignedPals = [...selectedPals];
 
@@ -50,7 +54,7 @@ export default function AssignItemDialog({ selectedItemID }) {
         </DialogHeader>
         <ScrollArea className="h-80">
           <div className="flex flex-col gap-2">
-            {pals.map(({ name, id }) => (
+            {pals.map(({ name, id, avatarColor }) => (
               <Label
                 key={id}
                 className="flex items-center gap-3 rounded-sm border p-3 has-[[aria-checked=true]]:border-green-950 has-[[aria-checked=true]]:bg-green-50"
@@ -59,7 +63,10 @@ export default function AssignItemDialog({ selectedItemID }) {
                   checked={selectedPals.some((pal) => pal.id === id)}
                   onCheckedChange={(checked) => {
                     if (checked) {
-                      setSelectedPals((prev) => [...prev, { id, name }]);
+                      setSelectedPals((prev) => [
+                        ...prev,
+                        { id, name, avatarColor },
+                      ]);
                     } else {
                       setSelectedPals((prev) =>
                         prev.filter((pal) => pal.id !== id)

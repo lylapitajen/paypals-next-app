@@ -23,8 +23,8 @@ export default function ReceiptItemCard({ name, price, quantity, id }) {
         <AssignItemDialog selectedItemID={id} />
         {selectedItem.assignedPals && (
           <div className="flex -space-x-1">
-            {selectedItem.assignedPals.map(({ id, name }) => (
-              <Avatar key={id} name={name} />
+            {selectedItem.assignedPals.map((pal) => (
+              <Avatar key={pal.id} {...pal} />
             ))}
           </div>
         )}

@@ -42,11 +42,11 @@ export default function AddPalsPage() {
     <div className="flex flex-col gap-6 flex-1">
       <h1 className="text-2xl font-semibold">Add your pals</h1>
       <ul className="flex flex-col gap-2">
-        {pals.map(({ name, id }) => (
+        {pals.map(({ name, id, avatarColor }) => (
           <li key={id}>
             <div className="flex justify-between items-center py-2 px-3 rounded-sm border border-neutral-200">
               <div className="flex gap-2 items-center">
-                <Avatar name={name} />
+                <Avatar name={name} avatarColor={avatarColor} />
                 {name}
               </div>
               <Button variant="ghost" onClick={() => removePal(id)}>

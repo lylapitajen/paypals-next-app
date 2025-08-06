@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { generateAvatarColor } from "@/lib/utils";
 
 export const ReceiptContext = createContext();
 
@@ -12,7 +13,10 @@ export function ReceiptProvider({ children }) {
   const [tipAmount, setTipAmount] = useState(0);
 
   const addPal = (name) => {
-    setPals((prev) => [...prev, { name, id: palID }]);
+    setPals((prev) => [
+      ...prev,
+      { name, id: palID, avatarColor: generateAvatarColor() },
+    ]);
     setPalID((prevID) => prevID + 1);
   };
 
