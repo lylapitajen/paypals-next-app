@@ -1,7 +1,13 @@
 import AssignItemDialog from "./AssignItemDialog";
 import Button from "./Button";
 import { Edit, Edit2, EditIcon, Plus, User } from "lucide-react";
+import { useReceipt } from "@/app/receipt-context";
+import Avatar from "./Avatar";
+
 export default function ReceiptItemCard({ name, price, quantity, id }) {
+  const { receiptData } = useReceipt();
+  const selectedItem = receiptData.items.find((item) => item.id === id);
+
   return (
     <div className="border border-neutral-200 rounded-sm flex flex-col">
       <div className="flex justify-between py-2 px-3">
@@ -14,11 +20,14 @@ export default function ReceiptItemCard({ name, price, quantity, id }) {
         <span>{`£${(price * quantity).toFixed(2)}`}</span>
       </div>
       <div className="flex justify-between items-center py-2 px-3 border-t border-neutral-200">
-        <AssignItemDialog itemID={id} itemName={name} />
-        {/* TO:DO Only display if item has assignees */}
-        <Button variant="ghost">
-          <EditIcon />
-        </Button>
+        <AssignItemDialog selectedItemID={id} />
+        {selectedItem.assignedPals && (
+          <div className="flex -space-x-1">
+            {selectedItem.assignedPals.map(({ id, name }) => (
+              <Avatar key={id} name={name} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -8,13 +8,13 @@ import { useEffect } from "react";
 
 export default function Home() {
   const router = useRouter();
-  const { rawReceiptData, setRawReceiptData } = useReceipt();
+  const { receiptData, setReceiptData } = useReceipt();
   useEffect(() => {
     console.log("Page mounted");
-    if (rawReceiptData) {
-      console.log("rawReceiptData loaded:", rawReceiptData);
+    if (receiptData) {
+      console.log("receiptData loaded:", receiptData);
     }
-  }, [rawReceiptData]);
+  }, [receiptData]);
 
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -43,7 +43,7 @@ export default function Home() {
       });
 
       const data = JSON.parse(response.data);
-      setRawReceiptData(data);
+      setReceiptData(data);
       router.push("/add-pals");
     } catch (error) {
       console.error(error);

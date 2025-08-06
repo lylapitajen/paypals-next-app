@@ -7,19 +7,18 @@ import { useRouter } from "next/navigation";
 
 export default function ReceiptPage() {
   const router = useRouter();
-  const { rawReceiptData, pals } = useReceipt();
-  console.log("Pals in Receipt Page:", pals);
+  const { receiptData, pals } = useReceipt();
   useEffect(() => {
-    console.log("rawReceiptData on Receipt Page:", rawReceiptData);
-  }, [rawReceiptData]);
+    console.log("receiptData on Receipt Page:", receiptData);
+  }, [receiptData]);
 
-  if (!rawReceiptData || !rawReceiptData.items) {
+  if (!receiptData || !receiptData.items) {
     return <p>Loading receipt data...</p>; // Or any placeholder content
   }
   return (
     <>
       <h1 className="text-2xl font-semibold">Receipt Breakdown</h1>
-      <ReceiptBreakdown {...rawReceiptData} />
+      <ReceiptBreakdown {...receiptData} />
       <div className="flex flex-col gap-2 mt-auto">
         <Button>Calculate individual totals</Button>
         <Button variant="secondary" onClick={() => router.push("/add-pals")}>

@@ -5,8 +5,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 export const ReceiptContext = createContext();
 
 export function ReceiptProvider({ children }) {
-  const [rawReceiptData, setRawReceiptData] = useState(x);
-  const [calculatedReceiptData, setCalculatedReceiptData] = useState(null);
+  //TODO: Replace with actual data fetching logic
+  const [receiptData, setReceiptData] = useState(x);
   const [pals, setPals] = useState([]);
   const [palID, setPalID] = useState(0);
   const [tipAmount, setTipAmount] = useState(0);
@@ -23,13 +23,11 @@ export function ReceiptProvider({ children }) {
   return (
     <ReceiptContext.Provider
       value={{
-        rawReceiptData,
-        calculatedReceiptData,
+        receiptData,
         pals,
         setPals,
         tipAmount,
-        setRawReceiptData,
-        setCalculatedReceiptData,
+        setReceiptData,
         addPal,
         removePal,
         setTipAmount,
@@ -49,36 +47,42 @@ const x = {
       quantity: 1,
       price: 16,
       id: 1,
+      assignedPals: [],
     },
     {
       name: "Pan de Coca",
       quantity: 1,
       price: 3.5,
       id: 2,
+      assignedPals: [],
     },
     {
       name: "Solomillo a la Sal",
       quantity: 2,
       price: 22,
       id: 3,
+      assignedPals: [],
     },
     {
       name: "Chocolate fondat",
       quantity: 1,
       price: 8.5,
       id: 4,
+      assignedPals: [],
     },
     {
       name: "Agua 1/2",
       quantity: 1,
       price: 4.5,
       id: 5,
+      assignedPals: [],
     },
     {
       name: "Copa Aphrodisiaque T.",
       quantity: 2,
       price: 6,
       id: 6,
+      assignedPals: [],
     },
   ],
   discounts: [

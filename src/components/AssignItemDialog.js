@@ -15,44 +15,31 @@ import { useReceipt } from "../app/receipt-context";
 import { ScrollArea } from "./ui/scroll-area";
 import { useEffect, useState } from "react";
 
-export default function AssignItemDialog({ itemID }) {
-  const { pals, setPals } = useReceipt();
-  const [selectedPalsIDs, setSelectedPalsIDs] = useState([]);
-
-  useEffect(() => {
-    console.log("Selected Pals:", selectedPalsIDs);
-  }, [selectedPalsIDs]);
-  useEffect(() => {
-    console.log("Context Pals:", pals);
-  }, [pals]);
+export default function AssignItemDialog({ selectedItemID }) {
+  const { pals, receiptData, setReceiptData } = useReceipt();
+  const [selectedPals, setSelectedPals] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const selectedItem = receiptData.items.find(
+    (item) => item.id === selectedItemID
+  );
 
   const handleAssign = () => {
-    console.log("Pals in context", pals);
-    console.log("Selected Pals:", selectedPalsIDs);
-    console.log("Item ID:", itemID);
+    selectedItem.assignedPals = [...selectedPals];
 
-    setPals((currentPals) => {
-      for (const id of selectedPalsIDs) {
-        for (const pal of currentPals) {
-          if (pal.id === id) {
-            if (!pal.assignedItems) {
-              pal.assignedItems = [];
-            }
-            if (!pal.assignedItems.includes(itemID)) {
-              pal.assignedItems.push(itemID);
-            }
-            // TODO: Add remove logic if item is already assigned
-          }
-        }
-      }
-      return [...currentPals];
-    });
+    setReceiptData((prevData) => ({
+      ...prevData,
+      // returns a new Items array, if item.id matches selectedItemID, it replaces it with the updated selectedItem
+      items: prevData.items.map((item) =>
+        item.id === selectedItemID ? selectedItem : item
+      ),
+    }));
+    setIsOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost">
+        <Button variant="ghost" onClick={() => setIsOpen(true)}>
           <User />
           Assign
         </Button>
@@ -69,12 +56,13 @@ export default function AssignItemDialog({ itemID }) {
                 className="flex items-center gap-3 rounded-sm border p-3 has-[[aria-checked=true]]:border-green-950 has-[[aria-checked=true]]:bg-green-50"
               >
                 <Checkbox
+                  checked={selectedPals.some((pal) => pal.id === id)}
                   onCheckedChange={(checked) => {
                     if (checked) {
-                      setSelectedPalsIDs((prev) => [...prev, id]);
+                      setSelectedPals((prev) => [...prev, { id, name }]);
                     } else {
-                      setSelectedPalsIDs((prev) =>
-                        prev.filter((palID) => palID !== id)
+                      setSelectedPals((prev) =>
+                        prev.filter((pal) => pal.id !== id)
                       );
                     }
                   }}

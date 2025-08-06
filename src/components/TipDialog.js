@@ -20,10 +20,6 @@ export default function TipDialog() {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  useEffect(() => {
-    console.log(inputValue, typeof inputValue);
-  }, [inputValue]);
-
   const handleTipChange = (tipValue) => {
     if (!tipValue || isNaN(tipValue) || tipValue < 0) {
       setErrorMessage("Please enter a number greater or equal to 0");
@@ -47,7 +43,7 @@ export default function TipDialog() {
         </DialogHeader>
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 mt-3 mb-3">
-            {/* TO:DO determine the currency based on receipt data */}
+            {/* TODO determine the currency based on receipt data */}
             <span className="font-medium text-neutral-600">£</span>
             <Input
               type="number"
@@ -62,7 +58,11 @@ export default function TipDialog() {
         <DialogFooter>
           <div className="flex gap-2 justify-end">
             <DialogClose asChild>
-              <Button type="button" variant="secondary">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => setErrorMessage(undefined)}
+              >
                 Cancel
               </Button>
             </DialogClose>
