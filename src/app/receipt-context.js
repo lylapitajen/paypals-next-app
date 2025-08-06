@@ -7,19 +7,17 @@ export const ReceiptContext = createContext();
 export function ReceiptProvider({ children }) {
   const [rawReceiptData, setRawReceiptData] = useState(x);
   const [calculatedReceiptData, setCalculatedReceiptData] = useState(null);
-  const [payees, setPayees] = useState([]);
-  const [payeeID, setPayeeID] = useState(0);
+  const [pals, setPals] = useState([]);
+  const [palID, setPalID] = useState(0);
   const [tipAmount, setTipAmount] = useState(0);
-  useEffect(() => console.log(payees), [payees]);
 
-  const addPayee = (name) => {
-    setPayees((prev) => [...prev, { name, id: payeeID }]);
-    setPayeeID((prevID) => prevID + 1);
-    console.log(payees);
+  const addPal = (name) => {
+    setPals((prev) => [...prev, { name, id: palID }]);
+    setPalID((prevID) => prevID + 1);
   };
 
-  const removePayee = (id) => {
-    setPayees((payees) => payees.filter((payee) => payee.id !== id));
+  const removePal = (id) => {
+    setPals((pals) => pals.filter((pal) => pal.id !== id));
   };
 
   return (
@@ -27,12 +25,13 @@ export function ReceiptProvider({ children }) {
       value={{
         rawReceiptData,
         calculatedReceiptData,
-        payees,
+        pals,
+        setPals,
         tipAmount,
         setRawReceiptData,
         setCalculatedReceiptData,
-        addPayee,
-        removePayee,
+        addPal,
+        removePal,
         setTipAmount,
       }}
     >

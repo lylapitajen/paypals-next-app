@@ -9,31 +9,28 @@ import { useRouter } from "next/navigation";
 import ErrorMessageAlert from "@/components/ErrorMessageAlert";
 
 export default function AddPalsPage() {
-  const { payees, addPayee, removePayee } = useReceipt();
+  const { pals, addPal, removePal } = useReceipt();
   const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState();
 
-  const handleAddPayee = (inputValue) => {
+  const handleAddPal = (inputValue) => {
     if (inputValue.length === 0) {
       setErrorMessage("Please enter a name");
       return;
     }
     if (
-      payees.find(
-        (payee) => payee.name.toLowerCase() === inputValue.toLowerCase()
-      )
+      pals.find((pal) => pal.name.toLowerCase() === inputValue.toLowerCase())
     ) {
       setErrorMessage("This pal is already added");
       return;
     }
-    addPayee(inputValue);
+    addPal(inputValue);
     setErrorMessage(undefined);
     setInputValue("");
-    console.log("Payees after adding:", payees);
   };
 
   const handleContinue = () => {
-    if (payees.length === 0) {
+    if (pals.length === 0) {
       setErrorMessage("Add at least one pal to continue");
       return;
     }
@@ -45,14 +42,14 @@ export default function AddPalsPage() {
     <div className="flex flex-col gap-6 flex-1">
       <h1 className="text-2xl font-semibold">Add your pals</h1>
       <ul className="flex flex-col gap-2">
-        {payees.map(({ name, id }) => (
+        {pals.map(({ name, id }) => (
           <li key={id}>
             <div className="flex justify-between items-center py-2 px-3 rounded-sm border border-neutral-200">
               <div className="flex gap-2 items-center">
                 <Avatar name={name} />
                 {name}
               </div>
-              <Button variant="ghost" onClick={() => removePayee(id)}>
+              <Button variant="ghost" onClick={() => removePal(id)}>
                 <X />
               </Button>
             </div>
@@ -73,7 +70,7 @@ export default function AddPalsPage() {
           <Button
             variant="secondary"
             onClick={(e) => {
-              handleAddPayee(inputValue);
+              handleAddPal(inputValue);
               e.preventDefault();
             }}
           >
