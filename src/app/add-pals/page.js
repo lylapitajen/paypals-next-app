@@ -57,7 +57,11 @@ export default function AddPalsPage() {
         ))}
       </ul>
       <div className="flex flex-col gap-4 mt-auto">
-        {errorMessage && <ErrorMessageAlert message={errorMessage} />}
+        {errorMessage && (
+          <ErrorMessageAlert>
+            <p>{errorMessage}</p>
+          </ErrorMessageAlert>
+        )}
         <form className="flex gap-2">
           <Input
             type="text"

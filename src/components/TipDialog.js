@@ -53,7 +53,11 @@ export default function TipDialog() {
               onKeyDown={() => setErrorMessage(undefined)}
             />
           </div>
-          {errorMessage && <ErrorMessageAlert message={errorMessage} />}
+          {errorMessage && (
+            <ErrorMessageAlert>
+              <p>{errorMessage}</p>
+            </ErrorMessageAlert>
+          )}
         </div>
         <DialogFooter>
           <div className="flex gap-2 justify-end">
