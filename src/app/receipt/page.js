@@ -9,20 +9,19 @@ import ErrorMessageAlert from "@/components/ErrorMessageAlert";
 export default function ReceiptPage() {
   const router = useRouter();
   const { receiptData } = useReceipt();
-  const [hasError, setHasError] = useState();
-  const [unAssignedItems, setUnassignedItems] = useState([]);
+  const [hasError, setHasError] = useState(false);
+  const [unassignedItems, setUnassignedItems] = useState([]);
+
+  useEffect(() => console.log("Unassigned", unassignedItems, "hasError", hasError), [unassignedItems]);
 
   const handleContinue = () => {
-    setUnassignedItems(
-      receiptData.items.filter((item) => !item.assignedPals.length)
-    );
-    if (unAssignedItems.length) {
+    setUnassignedItems(receiptData.items.filter((item) => !item.assignedPals.length));
+    if (unassignedItems.length) {
       setHasError(true);
       return;
-    } else {
-      setHasError(false);
-      // router.push("/receipt-breakdown");
     }
+    setHasError(false);
+    router.push("/totals");
   };
 
   useEffect(() => {
@@ -42,16 +41,16 @@ export default function ReceiptPage() {
             <div className="flex flex-col gap-1">
               <p>Please assign items to at least one pal:</p>
               <ul>
-                {unAssignedItems.map((item) => (
-                  <li className="font-medium list-disc ml-4">{item.name}</li>
+                {unassignedItems.map((item) => (
+                  <li key={item.id} className="font-medium list-disc ml-4">
+                    {item.name}
+                  </li>
                 ))}
               </ul>
             </div>
           </ErrorMessageAlert>
         )}
-        <Button onClick={() => handleContinue()}>
-          Calculate individual totals
-        </Button>
+        <Button onClick={() => handleContinue()}>Calculate individual totals</Button>
         <Button variant="secondary" onClick={() => router.push("/add-pals")}>
           Back
         </Button>

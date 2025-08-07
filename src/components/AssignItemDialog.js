@@ -19,13 +19,12 @@ export default function AssignItemDialog({ selectedItemID }) {
   const { pals, receiptData, setReceiptData } = useReceipt();
   const [selectedPals, setSelectedPals] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const selectedItem = receiptData.items.find(
-    (item) => item.id === selectedItemID
-  );
+  const selectedItem = receiptData.items.find((item) => item.id === selectedItemID);
 
   useEffect(() => {
     console.log("Selected Pals:", selectedPals);
-  }, [selectedPals]);
+    console.log("Selected Item:", selectedItem);
+  }, [selectedPals, selectedItemID]);
 
   const handleAssign = () => {
     selectedItem.assignedPals = [...selectedPals];
@@ -33,9 +32,7 @@ export default function AssignItemDialog({ selectedItemID }) {
     setReceiptData((prevData) => ({
       ...prevData,
       // returns a new Items array, if item.id matches selectedItemID, it replaces it with the updated selectedItem
-      items: prevData.items.map((item) =>
-        item.id === selectedItemID ? selectedItem : item
-      ),
+      items: prevData.items.map((item) => (item.id === selectedItemID ? selectedItem : item)),
     }));
     setIsOpen(false);
   };
@@ -63,14 +60,9 @@ export default function AssignItemDialog({ selectedItemID }) {
                   checked={selectedPals.some((pal) => pal.id === id)}
                   onCheckedChange={(checked) => {
                     if (checked) {
-                      setSelectedPals((prev) => [
-                        ...prev,
-                        { id, name, avatarColor },
-                      ]);
+                      setSelectedPals((prev) => [...prev, { id, name, avatarColor }]);
                     } else {
-                      setSelectedPals((prev) =>
-                        prev.filter((pal) => pal.id !== id)
-                      );
+                      setSelectedPals((prev) => prev.filter((pal) => pal.id !== id));
                     }
                   }}
                   className="data-[state=checked]:border-green-950 data-[state=checked]:bg-green-950 data-[state=checked]:text-white"
