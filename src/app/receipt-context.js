@@ -93,12 +93,6 @@ const x = {
       amount: 26.55,
       percentage: 30,
     },
-    {
-      description: "2for 1",
-      // TODO: check if the data returned is returning a neg or pos value
-      amount: 5.5,
-      percentage: 30,
-    },
   ],
   tax: {
     amount: 5.63,
