@@ -9,14 +9,9 @@ const responseSchema = {
           name: { type: "string" },
           quantity: { type: "integer" },
           price: { type: "number" },
-          // TODO: Check this is returning correctly
-          assignedPals: {
-            type: "array",
-            items: { type: "string" },
-            default: [],
-          },
+          id: { type: "string" },
         },
-        required: ["name", "quantity", "price"],
+        required: ["name", "quantity", "price", "id"],
         additionalProperties: false,
       },
     },
