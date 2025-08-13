@@ -38,11 +38,19 @@ const responseSchema = {
       required: ["amount", "rate", "base"],
       additionalProperties: false,
     },
+    serviceCharge: {
+      type: "object",
+      properties: {
+        amount: { type: "number" },
+        rate: { type: "number" },
+      },
+      required: ["amount", "rate"],
+      additionalProperties: false,
+    },
     total: { type: "number" },
-    net_total: { type: "number" },
     subtotal: { type: "number" },
   },
-  required: ["items", "discounts", "tax", "total", "net_total", "subtotal"],
+  required: ["items", "discounts", "tax", "serviceCharge", "total", "subtotal"],
   additionalProperties: false,
 };
 

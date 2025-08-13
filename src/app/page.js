@@ -4,11 +4,13 @@ import ReceiptUploader from "@/components/ReceiptUploader";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useReceipt } from "./receipt-context";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function Home() {
   const router = useRouter();
   const { receiptData, setReceiptData } = useReceipt();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     console.log("Page mounted");
     if (receiptData) {
@@ -33,6 +35,7 @@ export default function Home() {
   };
 
   const handleUpload = async (file) => {
+    setLoading(true);
     try {
       // convertToBase64 returns a Promise
       const convertedImage = await convertToBase64(file);
@@ -45,10 +48,16 @@ export default function Home() {
       const data = JSON.parse(response.data);
       setReceiptData(data);
       router.push("/add-pals");
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      // TODO: Error handling when image processing fails or receipt is not readable.
     }
   };
+
+  if (loading) {
+    return <LoadingSpinner message="Scanning receipt...." />;
+  }
 
   return (
     <div className="h-full flex flex-col justify-center">
