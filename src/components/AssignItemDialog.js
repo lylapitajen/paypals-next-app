@@ -24,7 +24,8 @@ export default function AssignItemDialog({ selectedItemID }) {
   useEffect(() => {
     console.log("Selected Pals:", selectedPals);
     console.log("Selected Item:", selectedItem);
-  }, [selectedPals, selectedItemID]);
+    console.log("receiptData:", receiptData);
+  }, [selectedPals, selectedItemID, receiptData]);
 
   const handleAssign = () => {
     selectedItem.assignedPals = [...selectedPals];

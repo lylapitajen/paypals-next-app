@@ -2,11 +2,14 @@
 import Avatar from "@/components/Avatar";
 import { useReceipt } from "../receipt-context";
 import { useEffect, useState } from "react";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function TotalsPage() {
   const { pals, setPals, receiptData, tipAmount } = useReceipt();
   const [loading, setLoading] = useState(true);
   const tipShare = tipAmount / pals.length;
+  const serviceChargeMultiplier = receiptData.serviceCharge.rate / 100 || 0;
+  const discountsMultiplier = receiptData.discounts.reduce((acc, { percentage }) => acc + percentage / 100, 0);
 
   const calculateTotals = () => {
     setPals((prev) => {
@@ -39,7 +42,7 @@ export default function TotalsPage() {
   }, []);
 
   if (loading) {
-    return <span>loading...</span>;
+    return <LoadingSpinner message="Calculating totals..." />;
   }
 
   return (
@@ -47,6 +50,8 @@ export default function TotalsPage() {
       <h1 className="text-2xl font-semibold">Totals</h1>
       <div className="flex flex-col gap-4">
         {pals.map((pal) => {
+          const finalTotal =
+            pal.itemsTotal + pal.itemsTotal * serviceChargeMultiplier + pal.itemsTotal * discountsMultiplier + tipShare;
           return (
             <div key={pal.id} className="flex flex-col gap-4 border border-neutral-200 rounded-sm py-2 px-3">
               <div className="flex justify-between items-center">
@@ -54,7 +59,7 @@ export default function TotalsPage() {
                   <Avatar {...pal} />
                   <span className="font-medium">{pal.name}</span>
                 </div>
-                <span>£{pal.itemsTotal.toFixed(2)}</span>
+                <span>£{finalTotal.toFixed(2)}</span>
               </div>
             </div>
           );

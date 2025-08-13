@@ -13,24 +13,22 @@ export default function ReceiptPage() {
   const [unassignedItems, setUnassignedItems] = useState([]);
 
   useEffect(() => console.log("Unassigned", unassignedItems, "hasError", hasError), [unassignedItems]);
+  useEffect(() => {
+    unassignedItems.length ? setHasError(true) : setHasError(false);
+  }, [unassignedItems]);
 
   const handleContinue = () => {
-    setUnassignedItems(receiptData.items.filter((item) => !item.assignedPals.length));
-    if (unassignedItems.length) {
-      setHasError(true);
-      return;
+    setUnassignedItems(receiptData.items.filter((item) => !item.assignedPals?.length));
+    if (!unassignedItems.length) {
+      // TODO: Bug where redirects to totals page even if there are unassigned items
+      router.push("/totals");
     }
-    setHasError(false);
-    router.push("/totals");
   };
 
   useEffect(() => {
     console.log("receiptData on Receipt Page:", receiptData);
   }, [receiptData]);
 
-  if (!receiptData || !receiptData.items) {
-    return <p>Loading receipt data...</p>; // Or any placeholder content
-  }
   return (
     <>
       <h1 className="text-2xl font-semibold">Receipt Breakdown</h1>
