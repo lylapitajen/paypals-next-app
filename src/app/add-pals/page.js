@@ -18,9 +18,7 @@ export default function AddPalsPage() {
       setErrorMessage("Please enter a name");
       return;
     }
-    if (
-      pals.find((pal) => pal.name.toLowerCase() === inputValue.toLowerCase())
-    ) {
+    if (pals.find((pal) => pal.name.toLowerCase() === inputValue.toLowerCase())) {
       setErrorMessage("This pal is already added");
       return;
     }
@@ -44,12 +42,12 @@ export default function AddPalsPage() {
       <ul className="flex flex-col gap-2">
         {pals.map(({ name, id, avatarColor }) => (
           <li key={id}>
-            <div className="flex justify-between items-center py-2 px-3 rounded-sm border border-neutral-200">
-              <div className="flex gap-2 items-center">
+            <div className="flex justify-between items-center py-3 px-4 card">
+              <div className="flex gap-2 items-center font-medium">
                 <Avatar name={name} avatarColor={avatarColor} />
                 {name}
               </div>
-              <Button variant="ghost" onClick={() => removePal(id)}>
+              <Button variant="ghost" onClick={() => removePal(id)} className="px-2">
                 <X />
               </Button>
             </div>
@@ -72,6 +70,7 @@ export default function AddPalsPage() {
             value={inputValue}
           />
           <Button
+            className="px-2"
             variant="secondary"
             onClick={(e) => {
               handleAddPal(inputValue);
@@ -83,7 +82,9 @@ export default function AddPalsPage() {
         </form>
         <div className="flex flex-col gap-2 mt-auto">
           <Button onClick={handleContinue}>Continue</Button>
-          <Button variant="secondary">Back</Button>
+          <Button variant="secondary" disabled={true}>
+            Back
+          </Button>
         </div>
       </div>
     </div>

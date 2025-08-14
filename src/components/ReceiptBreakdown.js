@@ -8,7 +8,7 @@ export default function ReceiptBreakdown({ items, discounts, subtotal, total, se
 
   return (
     <section className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3">
         {items.map((item) => (
           <ReceiptItemCard key={item.name} {...item} />
         ))}
@@ -34,7 +34,7 @@ export default function ReceiptBreakdown({ items, discounts, subtotal, total, se
             ))}
           </ul>
         ) : (
-          <span className="italic text-neutral-600">No discounts found</span>
+          <span className="italic text-stone-600">No discounts found</span>
         )}
       </div>
       <div className="flex flex-col gap-3">
@@ -51,7 +51,7 @@ export default function ReceiptBreakdown({ items, discounts, subtotal, total, se
           <span className="font-medium">+£{tipAmount.toFixed(2)}</span>
         </div>
 
-        <div className="flex justify-between items-center text-lg pt-2 border-t border-neutral-200">
+        <div className="flex justify-between items-center text-lg pt-2 border-t">
           <span>Total</span>
           <span className="font-bold">£{(total + tipAmount).toFixed(2)}</span>
           {/*TODO: Add a check here if total is different to receipData.total i.e. if scanning didn't work properly */}

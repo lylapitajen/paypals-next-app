@@ -60,7 +60,7 @@ export default function Home() {
   }
 
   return (
-    <div className="h-full flex flex-col justify-center">
+    <div className="h-screen flex flex-col justify-center">
       <section className="flex flex-col gap-8 items-center">
         <Logo size="lg" />
         <ReceiptUploader handleUpload={handleUpload} />

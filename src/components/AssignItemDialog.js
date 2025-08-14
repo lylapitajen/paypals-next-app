@@ -55,7 +55,7 @@ export default function AssignItemDialog({ selectedItemID }) {
             {pals.map(({ name, id, avatarColor }) => (
               <Label
                 key={id}
-                className="flex items-center gap-3 rounded-sm border p-3 has-[[aria-checked=true]]:border-green-950 has-[[aria-checked=true]]:bg-green-50"
+                className="card flex items-center gap-3 p-3 has-[[aria-checked=true]]:border-green-950 has-[[aria-checked=true]]:bg-[#cedfcd]"
               >
                 <Checkbox
                   checked={selectedPals.some((pal) => pal.id === id)}
@@ -66,7 +66,7 @@ export default function AssignItemDialog({ selectedItemID }) {
                       setSelectedPals((prev) => prev.filter((pal) => pal.id !== id));
                     }
                   }}
-                  className="data-[state=checked]:border-green-950 data-[state=checked]:bg-green-950 data-[state=checked]:text-white"
+                  className="bg-white data-[state=checked]:border-green-950 data-[state=checked]:bg-green-950 data-[state=checked]:text-white"
                 />
                 <span className="text-base">{name}</span>
               </Label>

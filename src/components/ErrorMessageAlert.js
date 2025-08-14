@@ -2,7 +2,7 @@ import { AlertCircle, AlertTriangle } from "lucide-react";
 
 export default function ErrorMessageAlert({ children }) {
   return (
-    <div className="py-2 px-3 flex gap-4 bg-red-50 text-red-700 rounded-sm items-center">
+    <div className="py-2 px-3 flex gap-3 bg-red-100/80 text-red-700 items-center font-medium">
       <AlertTriangle className="w-4 h-4" />
       {children}
     </div>

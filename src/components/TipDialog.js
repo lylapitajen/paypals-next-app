@@ -44,7 +44,7 @@ export default function TipDialog() {
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 mt-3 mb-3">
             {/* TODO determine the currency based on receipt data */}
-            <span className="font-medium text-neutral-600">£</span>
+            <span className="font-medium text-stone-600">£</span>
             <Input
               type="number"
               placeholder="Enter amount"
@@ -62,11 +62,7 @@ export default function TipDialog() {
         <DialogFooter>
           <div className="flex gap-2 justify-end">
             <DialogClose asChild>
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => setErrorMessage(undefined)}
-              >
+              <Button type="button" variant="secondary" onClick={() => setErrorMessage(undefined)}>
                 Cancel
               </Button>
             </DialogClose>

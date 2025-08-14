@@ -48,18 +48,18 @@ export default function TotalsPage() {
   return (
     <>
       <h1 className="text-2xl font-semibold">Totals</h1>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
         {pals.map((pal) => {
           const finalTotal =
             pal.itemsTotal + pal.itemsTotal * serviceChargeMultiplier + pal.itemsTotal * discountsMultiplier + tipShare;
           return (
-            <div key={pal.id} className="flex flex-col gap-4 border border-neutral-200 rounded-sm py-2 px-3">
+            <div key={pal.id} className="card flex flex-col gap-4">
               <div className="flex justify-between items-center">
                 <div className="flex gap-2 items-center">
                   <Avatar {...pal} />
                   <span className="font-medium">{pal.name}</span>
                 </div>
-                <span>£{finalTotal.toFixed(2)}</span>
+                <span className="font-semibold">£{finalTotal.toFixed(2)}</span>
               </div>
             </div>
           );
