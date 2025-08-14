@@ -56,7 +56,7 @@ export default function Home() {
   };
 
   if (loading) {
-    return <LoadingSpinner message="Scanning receipt...." />;
+    return <LoadingSpinner message="Scanning receipt..." />;
   }
 
   return (

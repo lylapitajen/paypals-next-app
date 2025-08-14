@@ -13,7 +13,7 @@ import { Label } from "./ui/label";
 import { User } from "lucide-react";
 import { useReceipt } from "../app/receipt-context";
 import { ScrollArea } from "./ui/scroll-area";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export default function AssignItemDialog({ selectedItemID }) {
   const { pals, receiptData, setReceiptData } = useReceipt();
@@ -22,10 +22,9 @@ export default function AssignItemDialog({ selectedItemID }) {
   const selectedItem = receiptData.items.find((item) => item.id === selectedItemID);
 
   useEffect(() => {
-    console.log("Selected Pals:", selectedPals);
-    console.log("Selected Item:", selectedItem);
-    console.log("receiptData:", receiptData);
-  }, [selectedPals, selectedItemID, receiptData]);
+    // Reset selectedPals to the assigned pals of the selected item
+    setSelectedPals(selectedItem.assignedPals || []);
+  }, [isOpen]);
 
   const handleAssign = () => {
     selectedItem.assignedPals = [...selectedPals];

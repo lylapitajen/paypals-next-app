@@ -12,15 +12,15 @@ export default function ReceiptPage() {
   const [hasError, setHasError] = useState(false);
   const [unassignedItems, setUnassignedItems] = useState([]);
 
-  useEffect(() => console.log("Unassigned", unassignedItems, "hasError", hasError), [unassignedItems]);
   useEffect(() => {
     unassignedItems.length ? setHasError(true) : setHasError(false);
   }, [unassignedItems]);
 
   const handleContinue = () => {
-    setUnassignedItems(receiptData.items.filter((item) => !item.assignedPals?.length));
-    if (!unassignedItems.length) {
-      // TODO: Bug where redirects to totals page even if there are unassigned items
+    const unassignedItemsCopy = receiptData.items.filter((item) => !item.assignedPals?.length);
+    setUnassignedItems(unassignedItemsCopy);
+
+    if (!unassignedItemsCopy.length) {
       router.push("/totals");
     }
   };
