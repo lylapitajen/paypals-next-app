@@ -3,6 +3,10 @@ import Avatar from "@/components/Avatar";
 import { useReceipt } from "../receipt-context";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Button from "@/components/Button";
+import { Upload } from "lucide-react";
+import { useRouter } from "next/router";
 
 export default function TotalsPage() {
   const { pals, setPals, receiptData, tipAmount } = useReceipt();
@@ -10,6 +14,7 @@ export default function TotalsPage() {
   const tipShare = tipAmount / pals.length;
   const serviceChargeMultiplier = receiptData.serviceCharge.rate / 100 || 0;
   const discountsMultiplier = receiptData.discounts.reduce((acc, { percentage }) => acc + percentage / 100, 0);
+  const router = useRouter();
 
   const calculateTotals = () => {
     setPals((prev) => {
@@ -48,22 +53,41 @@ export default function TotalsPage() {
   return (
     <>
       <h1 className="text-2xl font-semibold">Totals</h1>
-      <div className="flex flex-col gap-3">
+      <Accordion type="single" collapsible className="w-full flex flex-col gap-2">
         {pals.map((pal) => {
-          const finalTotal =
-            pal.itemsTotal + pal.itemsTotal * serviceChargeMultiplier + pal.itemsTotal * discountsMultiplier + tipShare;
+          let finalTotal = pal.itemsTotal + tipShare;
+          finalTotal += finalTotal * serviceChargeMultiplier;
+          finalTotal -= finalTotal * discountsMultiplier;
+
           return (
-            <div key={pal.id} className="card flex flex-col gap-4">
-              <div className="flex justify-between items-center">
-                <div className="flex gap-2 items-center">
-                  <Avatar {...pal} />
-                  <span className="font-medium">{pal.name}</span>
+            <AccordionItem value={pal.name} key={pal.id} className="card hover:cursor-pointer last:border-b-1">
+              <AccordionTrigger className="p-0 items-center gap-2">
+                <div className="flex justify-between items-center w-full text-base">
+                  <div className="flex gap-2 items-center">
+                    <Avatar {...pal} />
+                    <span className="font-medium">{pal.name}</span>
+                  </div>
+                  <span className="font-semibold">£{finalTotal.toFixed(2)}</span>
                 </div>
-                <span className="font-semibold">£{finalTotal.toFixed(2)}</span>
-              </div>
-            </div>
+              </AccordionTrigger>
+              <AccordionContent className="flex flex-col gap-1 mt-3 pb-0">
+                <span className="font-medium">Items</span>
+                {receiptData.items.map(({ assignedPals, name }) => {
+                  const isAssigned = assignedPals.some(({ id }) => id === pal.id);
+                  if (isAssigned) {
+                    return <p key={name}>{name}</p>;
+                  }
+                })}
+              </AccordionContent>
+            </AccordionItem>
           );
         })}
+      </Accordion>
+      <div>
+        <Button onClick={() => router.push("/")}>
+          <Upload />
+          Upload another receipt
+        </Button>
       </div>
     </>
   );
