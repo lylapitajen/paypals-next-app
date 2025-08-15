@@ -13,7 +13,7 @@ import { Label } from "./ui/label";
 import { User } from "lucide-react";
 import { useReceipt } from "../app/receipt-context";
 import { ScrollArea } from "./ui/scroll-area";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AssignItemDialog({ selectedItemID }) {
   const { pals, receiptData, setReceiptData } = useReceipt();
@@ -72,15 +72,13 @@ export default function AssignItemDialog({ selectedItemID }) {
             ))}
           </div>
         </ScrollArea>
-        <DialogFooter>
-          <div className="flex gap-2 justify-end">
-            <DialogClose asChild>
-              <Button type="button" variant="secondary">
-                Cancel
-              </Button>
-            </DialogClose>
-            <Button onClick={() => handleAssign()}>Assign to pals</Button>
-          </div>
+        <DialogFooter className="flex gap-2 justify-end">
+          <DialogClose asChild>
+            <Button type="button" variant="secondary">
+              Cancel
+            </Button>
+          </DialogClose>
+          <Button onClick={() => handleAssign()}>Assign to pals</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

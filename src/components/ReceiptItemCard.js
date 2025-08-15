@@ -3,6 +3,7 @@ import Button from "./Button";
 import { Edit, Edit2, EditIcon, Plus, User } from "lucide-react";
 import { useReceipt } from "@/app/receipt-context";
 import Avatar from "./Avatar";
+import EditItemDialog from "./EditItemDialog";
 
 export default function ReceiptItemCard({ name, price, quantity, id }) {
   const { receiptData } = useReceipt();
@@ -20,7 +21,10 @@ export default function ReceiptItemCard({ name, price, quantity, id }) {
         <span>{`£${(price * quantity).toFixed(2)}`}</span>
       </div>
       <div className="flex justify-between items-center py-2 px-3 border-t">
-        <AssignItemDialog selectedItemID={id} />
+        <div className="flex gap-3">
+          <AssignItemDialog selectedItemID={id} />
+          <EditItemDialog selectedItemID={id} />
+        </div>
         {selectedItem.assignedPals && (
           <div className="flex -space-x-1">
             {selectedItem.assignedPals.map((pal) => (

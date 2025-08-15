@@ -1,4 +1,4 @@
-function Button({ variant = "primary", children, onClick }) {
+function Button({ variant = "primary", children, onClick, type = "button" }) {
   const buttonStyles = {
     primary: "bg-primary text-white shadow-xs py-2 px-3 ",
     secondary: "bg-secondary text-primary py-2 px-3",
@@ -7,6 +7,7 @@ function Button({ variant = "primary", children, onClick }) {
 
   return (
     <button
+      type={type || "button"}
       onClick={onClick}
       className={`${buttonStyles[variant]} flex gap-1 items-center justify-center font-medium cursor-pointer transition duration-50 ease-in-out [&>svg]:w-4 [&>svg]:h-4`}
     >
