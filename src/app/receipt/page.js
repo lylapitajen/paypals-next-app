@@ -13,6 +13,12 @@ export default function ReceiptPage() {
   const [unassignedItems, setUnassignedItems] = useState([]);
 
   useEffect(() => {
+    if (!receiptData) {
+      router.push("/");
+    }
+  }, [receiptData]);
+
+  useEffect(() => {
     unassignedItems.length ? setHasError(true) : setHasError(false);
   }, [unassignedItems]);
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import TipDialog from "./TipDialog";
 import ReceiptItemCard from "./ReceiptItemCard";
 import { useReceipt } from "../app/receipt-context";
@@ -6,7 +6,8 @@ import ErrorMessageAlert from "./ErrorMessageAlert";
 
 export default function ReceiptBreakdown({ items, discounts, subtotal, total, serviceCharge }) {
   const { tipAmount } = useReceipt();
-  const calculatedSubtotal = items.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
+  const calculatedSubtotal =
+    Math.round(items.reduce((acc, { price, quantity }) => acc + price * quantity, 0) * 100) / 100;
 
   return (
     <section className="flex flex-col gap-6">
@@ -62,8 +63,7 @@ export default function ReceiptBreakdown({ items, discounts, subtotal, total, se
 
         <div className="flex justify-between items-center text-lg pt-2 border-t">
           <span>Total</span>
-          <span className="font-bold">£{(total + tipAmount).toFixed(2)}</span>
-          {/*TODO: Add a check here if total is different to receipData.total i.e. if scanning didn't work properly */}
+          <span className="font-bold">£{(total + tipAmount).toFixed(2)}</span>{" "}
         </div>
       </div>
     </section>

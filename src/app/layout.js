@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${spaceGrotesk.className} antialiased bg-neutral-100 text-stone-800 text-base`}>
-        <main className="max-w-[576px] mx-auto flex flex-col gap-12 min-h-screen bg-[#FFFAF4] py-8 px-6">
+        <main className="max-w-[576px] mx-auto flex flex-col gap-12 min-h-[100dvh] bg-[#FFFAF4] py-8 px-6">
           <ReceiptProvider>{children}</ReceiptProvider>
         </main>
       </body>

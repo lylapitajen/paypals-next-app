@@ -2,7 +2,7 @@
 import Button from "@/components/Button";
 import { AlertCircle, Plus, X } from "lucide-react";
 import { useReceipt } from "@/app/receipt-context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import Avatar from "@/components/Avatar";
 import { useRouter } from "next/navigation";
@@ -12,6 +12,15 @@ export default function AddPalsPage() {
   const { pals, addPal, removePal } = useReceipt();
   const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState();
+  const { receiptData } = useReceipt();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!receiptData) {
+      router.push("/");
+    }
+  }, [receiptData]);
 
   const handleAddPal = (inputValue) => {
     if (inputValue.length === 0) {
@@ -35,7 +44,6 @@ export default function AddPalsPage() {
     router.push("/receipt");
   };
 
-  const router = useRouter();
   return (
     <div className="flex flex-col gap-6 flex-1">
       <h1 className="text-2xl font-semibold">Add your pals</h1>
@@ -60,7 +68,7 @@ export default function AddPalsPage() {
             <p>{errorMessage}</p>
           </ErrorMessageAlert>
         )}
-        <form className="flex gap-2">
+        <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
           <Input
             type="text"
             onChange={(e) => setInputValue(e.target.value)}

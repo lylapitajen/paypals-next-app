@@ -6,7 +6,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Button from "@/components/Button";
 import { Upload } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function TotalsPage() {
   const { pals, setPals, receiptData, tipAmount } = useReceipt();
@@ -15,6 +15,12 @@ export default function TotalsPage() {
   const serviceChargeMultiplier = receiptData.serviceCharge.rate / 100 || 0;
   const discountsMultiplier = receiptData.discounts.reduce((acc, { percentage }) => acc + percentage / 100, 0);
   const router = useRouter();
+
+  useEffect(() => {
+    if (!receiptData) {
+      router.push("/");
+    }
+  }, [receiptData]);
 
   const calculateTotals = () => {
     setPals((prev) => {
@@ -55,9 +61,8 @@ export default function TotalsPage() {
       <h1 className="text-2xl font-semibold">Totals</h1>
       <Accordion type="single" collapsible className="w-full flex flex-col gap-2">
         {pals.map((pal) => {
-          let finalTotal = pal.itemsTotal + tipShare;
-          finalTotal += finalTotal * serviceChargeMultiplier;
-          finalTotal -= finalTotal * discountsMultiplier;
+          //prettier-ignore
+          const finalTotal = pal.itemsTotal + (pal.itemsTotal * serviceChargeMultiplier) - (pal.itemsTotal * discountsMultiplier) + tipShare;
 
           return (
             <AccordionItem value={pal.name} key={pal.id} className="card hover:cursor-pointer last:border-b-1">
@@ -83,8 +88,8 @@ export default function TotalsPage() {
           );
         })}
       </Accordion>
-      <div>
-        <Button onClick={() => router.push("/")}>
+      <div className="mx-auto mt-auto">
+        <Button variant="ghost" onClick={() => router.push("/")}>
           <Upload />
           Upload another receipt
         </Button>
