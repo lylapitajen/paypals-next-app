@@ -43,7 +43,6 @@ export default function EditItemDialog({ selectedItemID }) {
       <DialogTrigger asChild>
         <Button variant="ghost" onClick={() => setIsOpen(true)}>
           <Edit />
-          Edit item
         </Button>
       </DialogTrigger>
       <DialogContent>

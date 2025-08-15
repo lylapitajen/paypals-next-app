@@ -11,20 +11,20 @@ export default function ReceiptItemCard({ name, price, quantity, id }) {
 
   return (
     <div className="card p-0">
-      <div className="flex justify-between py-2 px-3">
+      <div className="flex justify-between py-2 px-3 items-start">
         <div className="flex flex-col gap-1">
           <span className="font-semibold text-md">{name}</span>
           <span className="text-sm text-stone-600">
             £{price.toFixed(2)} x {quantity}
           </span>
         </div>
-        <span>{`£${(price * quantity).toFixed(2)}`}</span>
-      </div>
-      <div className="flex justify-between items-center py-2 px-3 border-t">
-        <div className="flex gap-3">
-          <AssignItemDialog selectedItemID={id} />
+        <div className="flex gap-2 items-center">
+          <span>{`£${(price * quantity).toFixed(2)}`}</span>
           <EditItemDialog selectedItemID={id} />
         </div>
+      </div>
+      <div className="flex justify-between items-center py-2 px-3 border-t">
+        <AssignItemDialog selectedItemID={id} />
         {selectedItem.assignedPals && (
           <div className="flex -space-x-1">
             {selectedItem.assignedPals.map((pal) => (

@@ -68,7 +68,7 @@ export default function AddPalsPage() {
             <p>{errorMessage}</p>
           </ErrorMessageAlert>
         )}
-        <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+        <form className="flex gap-2 mb-3" onSubmit={(e) => e.preventDefault()}>
           <Input
             type="text"
             onChange={(e) => setInputValue(e.target.value)}
@@ -88,9 +88,11 @@ export default function AddPalsPage() {
             <Plus />
           </Button>
         </form>
-        <div className="flex flex-col gap-2 mt-auto">
-          <Button onClick={handleContinue}>Continue</Button>
-          <Button variant="secondary" disabled={true}>
+        <div className="flex flex-col gap-2">
+          <Button className="w-full" onClick={handleContinue}>
+            Continue
+          </Button>
+          <Button className="w-full" variant="secondary" disabled={true}>
             Back
           </Button>
         </div>
