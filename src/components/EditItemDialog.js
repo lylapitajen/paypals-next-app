@@ -58,7 +58,7 @@ export default function EditItemDialog({ selectedItemID }) {
           </div>
           <div className="flex flex-col gap-2">
             <Label>Price</Label>
-            <Input type="number" name="item-price" defaultValue={selectedItem.price}></Input>
+            <Input type="number" name="item-price" step="any" defaultValue={selectedItem.price}></Input>
           </div>
           <div className="flex flex-col gap-2">
             <Label>Quantity</Label>

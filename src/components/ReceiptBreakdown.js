@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TipDialog from "./TipDialog";
 import ReceiptItemCard from "./ReceiptItemCard";
 import { useReceipt } from "../app/receipt-context";
+import ErrorMessageAlert from "./ErrorMessageAlert";
 
 export default function ReceiptBreakdown({ items, discounts, subtotal, total, serviceCharge }) {
   const { tipAmount } = useReceipt();
+  const calculatedSubtotal = items.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
 
   return (
     <section className="flex flex-col gap-6">
@@ -14,12 +16,19 @@ export default function ReceiptBreakdown({ items, discounts, subtotal, total, se
         ))}
       </div>
       {/* Discounts, tips etc. */}
-      <div className="flex justify-between items-center">
-        <span>Subtotal</span>
-        <span className="font-medium">
-          £{items.reduce((acc, { price, quantity }) => acc + price * quantity, 0).toFixed(2)}
-          {/* TODO: Add a check here if subtotal is different to receipData.subtotal i.e. if scanning didn't work properly */}
-        </span>
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between items-center">
+          <span>Subtotal</span>
+          <span className="font-medium">
+            £{calculatedSubtotal.toFixed(2)}
+            {/* TODO: Add a check here if subtotal is different to receipData.subtotal i.e. if scanning didn't work properly */}
+          </span>
+        </div>
+        {subtotal && subtotal !== calculatedSubtotal && (
+          <ErrorMessageAlert>
+            <p>Subtotal doesn't match the scanned value from the receipt. Check all item details are correct.</p>
+          </ErrorMessageAlert>
+        )}
       </div>
 
       <div className="flex flex-col gap-3">
