@@ -11,11 +11,11 @@ import { Edit } from "lucide-react";
 import Button from "./Button";
 import { Input } from "./ui/input";
 import { useReceipt } from "../app/receipt-context";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ErrorMessageAlert from "./ErrorMessageAlert";
 
 export default function TipDialog() {
-  const { tipAmount, setTipAmount } = useReceipt();
+  const { setTipAmount } = useReceipt();
   const [errorMessage, setErrorMessage] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");

@@ -39,7 +39,7 @@ export default function TotalsPage() {
     setPals((prev) => {
       const palsCopy = prev.map((pal) => ({ ...pal, itemsTotal: 0 }));
 
-      for (const { quantity, price, assignedPals, id } of receiptData.items) {
+      for (const { quantity, price, assignedPals } of receiptData.items) {
         // Calculate total share per pal assigned, this is equally shared for now.
         const itemSharePrice = (quantity * price) / assignedPals.length;
 

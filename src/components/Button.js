@@ -11,7 +11,7 @@ function Button({ variant = "primary", children, onClick, type = "button", class
       type={type || "button"}
       onClick={onClick}
       className={cn(
-        `${buttonStyles[variant]} flex gap-1 items-center justify-center font-medium cursor-pointer transition duration-50 ease-in-out [&>svg]:w-4 [&>svg]:h-4`,
+        `${buttonStyles[variant]} flex gap-1 items-center justify-center font-medium cursor-pointer transition duration-50 ease-in-out [&>svg]:w-4 [&>svg]:h-4`,
         className
       )}
     >

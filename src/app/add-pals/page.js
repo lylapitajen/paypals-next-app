@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/Button";
-import { AlertCircle, Plus, X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { useReceipt } from "@/app/receipt-context";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";

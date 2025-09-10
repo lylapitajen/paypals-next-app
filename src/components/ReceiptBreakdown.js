@@ -1,4 +1,3 @@
-import { useState, useEffect, use } from "react";
 import TipDialog from "./TipDialog";
 import ReceiptItemCard from "./ReceiptItemCard";
 import { useReceipt } from "../app/receipt-context";
@@ -27,7 +26,7 @@ export default function ReceiptBreakdown({ items, discounts, subtotal, total, se
         </div>
         {subtotal && subtotal !== calculatedSubtotal && (
           <ErrorMessageAlert>
-            <p>Subtotal doesn't match the scanned value from the receipt. Check all item details are correct.</p>
+            <p>{"Subtotal doesn't match the scanned value from the receipt. Check all item details are correct."}</p>
           </ErrorMessageAlert>
         )}
       </div>

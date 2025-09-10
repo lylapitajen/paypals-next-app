@@ -1,6 +1,4 @@
 import AssignItemDialog from "./AssignItemDialog";
-import Button from "./Button";
-import { Edit, Edit2, EditIcon, Plus, User } from "lucide-react";
 import { useReceipt } from "@/app/receipt-context";
 import Avatar from "./Avatar";
 import EditItemDialog from "./EditItemDialog";

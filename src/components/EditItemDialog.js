@@ -9,7 +9,7 @@ import {
 } from "./ui/dialog";
 import Button from "./Button";
 import { useReceipt } from "@/app/receipt-context";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Edit } from "lucide-react";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "./ui/input";

@@ -1,5 +1,4 @@
 import { getInitials } from "@/lib/utils";
-import { useMemo } from "react";
 
 export default function Avatar({ name, size = "md", avatarColor }) {
   const sizeClasses = {
