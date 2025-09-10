@@ -1,6 +1,7 @@
 const responseSchema = {
   type: "object",
   properties: {
+    imgType: { type: "string", enum: ["RECEIPT", "NOT_A_RECEIPT"] },
     items: {
       type: "array",
       items: {
@@ -50,7 +51,7 @@ const responseSchema = {
     total: { type: "number" },
     subtotal: { type: "number" },
   },
-  required: ["items", "discounts", "tax", "serviceCharge", "total", "subtotal"],
+  required: ["imgType", "items", "discounts", "tax", "serviceCharge", "total", "subtotal"],
   additionalProperties: false,
 };
 

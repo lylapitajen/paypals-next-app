@@ -6,11 +6,14 @@ import { useRouter } from "next/navigation";
 import { useReceipt } from "./receipt-context";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import ErrorMessageAlert from "@/components/ErrorMessageAlert";
 
 export default function Home() {
   const router = useRouter();
   const { receiptData, setReceiptData } = useReceipt();
+  const [errorMessage, setErrorMessage] = useState();
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     console.log("Page mounted");
     if (receiptData) {
@@ -36,6 +39,7 @@ export default function Home() {
 
   const handleUpload = async (file) => {
     setLoading(true);
+    setErrorMessage(undefined);
     try {
       // convertToBase64 returns a Promise
       const convertedImage = await convertToBase64(file);
@@ -50,13 +54,14 @@ export default function Home() {
       router.push("/add-pals");
       setLoading(false);
     } catch (error) {
-      console.error(error);
-      // TODO: Error handling when image processing fails or receipt is not readable.
+      console.error("Error", error);
+      setErrorMessage("There was an issue processing the image. Please try again.");
+      setLoading(false);
     }
   };
 
   if (loading) {
-    return <LoadingSpinner message="Scanning receipt..." />;
+    return <LoadingSpinner message="Scanning image..." />;
   }
 
   return (
@@ -64,6 +69,7 @@ export default function Home() {
       <section className="flex flex-col gap-8 items-center">
         <Logo size="lg" />
         <ReceiptUploader handleUpload={handleUpload} />
+        {errorMessage && <ErrorMessageAlert>{errorMessage}</ErrorMessageAlert>}
       </section>
     </div>
   );

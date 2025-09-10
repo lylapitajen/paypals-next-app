@@ -10,17 +10,30 @@ import { useRouter } from "next/navigation";
 
 export default function TotalsPage() {
   const { pals, setPals, receiptData, tipAmount } = useReceipt();
-  const [loading, setLoading] = useState(true);
-  const tipShare = tipAmount / pals.length;
-  const serviceChargeMultiplier = receiptData.serviceCharge.rate / 100 || 0;
-  const discountsMultiplier = receiptData.discounts.reduce((acc, { percentage }) => acc + percentage / 100, 0);
   const router = useRouter();
+
+  //TODO: This re-routing isn't working...
 
   useEffect(() => {
     if (!receiptData) {
       router.push("/");
+      return;
     }
   }, [receiptData]);
+
+  const [loading, setLoading] = useState(true);
+  const tipShare = tipAmount / pals.length;
+
+  const { amount: serviceChargeAmount, rate: serviceChargeRate } = receiptData.serviceCharge;
+  const serviceChargeMultiplier =
+    // Sometimes rate isn't on the receipt, so we calculate it based on the amount and subtotal
+    serviceChargeAmount && serviceChargeRate
+      ? serviceChargeRate / 100
+      : Math.round((serviceChargeAmount / receiptData.subtotal) * 1000) / 1000;
+
+  const discountsMultiplier = receiptData.discounts.reduce((acc, { percentage }) => acc + percentage / 100, 0);
+
+  console.log("Service charge multiplier:", serviceChargeMultiplier);
 
   const calculateTotals = () => {
     setPals((prev) => {
@@ -45,7 +58,7 @@ export default function TotalsPage() {
 
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
   };
 
   useEffect(() => {
