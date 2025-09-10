@@ -8,7 +8,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata = {
   title: "PayPals",
-  description: "Scan a receipt, assign items and calculate how much each pal owes!",
+  description: "Easiest way to split the bill with friends",
 };
 
 export default function RootLayout({ children }) {
