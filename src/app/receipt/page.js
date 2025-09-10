@@ -5,6 +5,7 @@ import Button from "@/components/Button";
 import ReceiptBreakdown from "@/components/ReceiptBreakdown";
 import { useRouter } from "next/navigation";
 import ErrorMessageAlert from "@/components/ErrorMessageAlert";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function ReceiptPage() {
   const router = useRouter();
@@ -31,34 +32,36 @@ export default function ReceiptPage() {
     }
   };
 
-  useEffect(() => {
-    console.log("receiptData on Receipt Page:", receiptData);
-  }, [receiptData]);
-
   return (
     <>
       <h1 className="text-2xl font-semibold">Receipt Breakdown</h1>
-      <ReceiptBreakdown {...receiptData} />
-      <div className="flex flex-col gap-2 mt-auto">
-        {hasError && (
-          <ErrorMessageAlert>
-            <div className="flex flex-col gap-1">
-              <p>Please assign items to at least one pal:</p>
-              <ul>
-                {unassignedItems.map((item) => (
-                  <li key={item.id} className="font-medium list-disc ml-4">
-                    {item.name}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </ErrorMessageAlert>
-        )}
-        <Button onClick={() => handleContinue()}>Calculate individual totals</Button>
-        <Button variant="secondary" onClick={() => router.push("/add-pals")}>
-          Back
-        </Button>
-      </div>
+      {!receiptData ? (
+        <LoadingSpinner message="Loading receipt..." />
+      ) : (
+        <div>
+          <ReceiptBreakdown {...receiptData} />
+          <div className="flex flex-col gap-2 mt-auto">
+            {hasError && (
+              <ErrorMessageAlert>
+                <div className="flex flex-col gap-1">
+                  <p>Please assign items to at least one pal:</p>
+                  <ul>
+                    {unassignedItems.map((item) => (
+                      <li key={item.id} className="font-medium list-disc ml-4">
+                        {item.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </ErrorMessageAlert>
+            )}
+            <Button onClick={() => handleContinue()}>Calculate individual totals</Button>
+            <Button variant="secondary" onClick={() => router.push("/add-pals")}>
+              Back
+            </Button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
