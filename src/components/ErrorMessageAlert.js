@@ -1,4 +1,4 @@
-import { AlertCircle, AlertTriangle } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 
 export default function ErrorMessageAlert({ children }) {
   return (

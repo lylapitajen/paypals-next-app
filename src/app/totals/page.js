@@ -7,19 +7,13 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import Button from "@/components/Button";
 import { Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
+import NoReceiptEmptyState from "@/components/NoReceiptEmptyState";
 
 export default function TotalsPage() {
   const { pals, setPals, receiptData, tipAmount } = useReceipt();
   const router = useRouter();
 
-  //TODO: This re-routing isn't working...
-
-  useEffect(() => {
-    if (!receiptData) {
-      router.push("/");
-      return;
-    }
-  }, [receiptData]);
+  if (!receiptData) return <NoReceiptEmptyState />;
 
   const [loading, setLoading] = useState(true);
   const tipShare = tipAmount / pals.length;
@@ -32,8 +26,6 @@ export default function TotalsPage() {
       : Math.round((serviceChargeAmount / receiptData.subtotal) * 1000) / 1000;
 
   const discountsMultiplier = receiptData.discounts.reduce((acc, { percentage }) => acc + percentage / 100, 0);
-
-  console.log("Service charge multiplier:", serviceChargeMultiplier);
 
   const calculateTotals = () => {
     setPals((prev) => {

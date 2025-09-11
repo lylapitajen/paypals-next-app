@@ -6,6 +6,7 @@ import ReceiptBreakdown from "@/components/ReceiptBreakdown";
 import { useRouter } from "next/navigation";
 import ErrorMessageAlert from "@/components/ErrorMessageAlert";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import NoReceiptEmptyState from "@/components/NoReceiptEmptyState";
 
 export default function ReceiptPage() {
   const router = useRouter();
@@ -13,11 +14,7 @@ export default function ReceiptPage() {
   const [hasError, setHasError] = useState(false);
   const [unassignedItems, setUnassignedItems] = useState([]);
 
-  useEffect(() => {
-    if (!receiptData) {
-      router.push("/");
-    }
-  }, [receiptData]);
+  if (!receiptData) return <NoReceiptEmptyState />;
 
   useEffect(() => {
     unassignedItems.length ? setHasError(true) : setHasError(false);

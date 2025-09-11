@@ -2,11 +2,12 @@
 import Button from "@/components/Button";
 import { Plus, X } from "lucide-react";
 import { useReceipt } from "@/app/receipt-context";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import Avatar from "@/components/Avatar";
 import { useRouter } from "next/navigation";
 import ErrorMessageAlert from "@/components/ErrorMessageAlert";
+import NoReceiptEmptyState from "@/components/NoReceiptEmptyState";
 
 export default function AddPalsPage() {
   const { pals, addPal, removePal } = useReceipt();
@@ -16,11 +17,7 @@ export default function AddPalsPage() {
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (!receiptData) {
-      router.push("/");
-    }
-  }, [receiptData]);
+  if (!receiptData) return <NoReceiptEmptyState />;
 
   const handleAddPal = (inputValue) => {
     if (inputValue.length === 0) {
